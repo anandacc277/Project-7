@@ -23,3 +23,12 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# Local documentation files (not for GitHub)
+COMMIT_FIXED.md
+IMPLEMENTATION_SUMMARY.md
+NEXT_STEPS.md
+PROJECT_PLAN.txt
+QUICK_START.md
+READY_TO_PUSH.md
+UPDATE_CONFIRMATION.md
