@@ -117,7 +117,7 @@ Click the badge to view detailed workflow logs.
 
 ## 👤 Author
 
-Created with Copilot SDK in VS Code
+Anand Kasaudhan
 
 ## 📄 License
 
