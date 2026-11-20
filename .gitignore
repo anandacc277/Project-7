@@ -1,0 +1,25 @@
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+*.tfvars.json
+!example.tfvars
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json

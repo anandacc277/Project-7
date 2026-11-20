@@ -1,0 +1,70 @@
+name: Terraform CI Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**.tf'
+      - '**.tfvars'
+      - '.github/workflows/terraform-validate.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - '**.tf'
+      - '**.tfvars'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+      
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check -recursive
+        continue-on-error: true
+      
+      - name: Terraform Validate
+        id: validate
+        run: |
+          terraform init -backend=false
+          terraform validate
+      
+      - name: Comment on PR (Format Issues)
+        if: failure() && steps.fmt.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ **Terraform Format Check Failed**\n\nPlease run `terraform fmt -recursive` to fix formatting issues.'
+            })
+      
+      - name: Comment on PR (Validation Success)
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ **Terraform Validation Passed**\n\n- Format check: ✓\n- Configuration validation: ✓'
+            })
+      
+      - name: Fail on Format Issues
+        if: steps.fmt.outcome == 'failure'
+        run: exit 1
