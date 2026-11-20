@@ -1,6 +1,6 @@
 # Terraform CI Validation Demo
 
-[![Terraform CI Validation](https://github.com/YOUR_USERNAME/terraform-ci-demo/actions/workflows/terraform-validate.yml/badge.svg)](https://github.com/YOUR_USERNAME/terraform-ci-demo/actions/workflows/terraform-validate.yml)
+[![Terraform CI Validation](https://github.com/YOUR_USERNAME/Project-7/actions/workflows/terraform-validate.yml/badge.svg)](https://github.com/YOUR_USERNAME/Project-7/actions/workflows/terraform-validate.yml)
 
 This project demonstrates Infrastructure as Code (IaC) CI/CD pipeline with automated Terraform checks.
 
